@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
+</head>
+
+
+
+<body onload="chart()">
+    <div>
+        <div class="container text-center mt-4" id="element-to-print">
+            <h2 class="alert alert-primary">Student Record</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S. No.</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>2010</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>2011</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>2012</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>2013</td>
+                        <td>76</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>2014</td>
+                        <td>55</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>2015</td>
+                        <td>88</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>2016</td>
+                        <td>45</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">9</th>
+                        <td>2017</td>
+                        <td>43</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">10</th>
+                        <td>2018</td>
+                        <td>102</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">11</th>
+                        <td>2019</td>
+                        <td>150</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">12</th>
+                        <td>2020</td>
+                        <td>180</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">13</th>
+                        <td>2021</td>
+                        <td>188</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">14</th>
+                        <td>2022</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">15</th>
+                        <td>2023</td>
+                        <td>205</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <canvas id="myChart" style="width:80%; max-width:600px" class='html2pdf__page-break'></canvas>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" onclick="make_pdf()">Download PDF</button>
+        </div>
+
+
+        <script>
+
+            function chart() {
+                let ctx = document.getElementById("myChart").getContext("2d");
+                let myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: [
+                            "2010",
+                            "2011",
+                            "2012",
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016",
+                            "2017",
+                            "2018",
+                            "2019",
+                            "2020",
+                            "2021",
+                            "2022",
+                            "2023",
+                        ],
+                        datasets: [
+                            {
+                                label: "Sales",
+                                data: [20, 10, 80, 55, 88, 45, 43, 102, 150, 180, 188, 200, 205],
+                                backgroundColor: "rgba(153,205,1,0.6)",
+                            },
+                        ],
+                    },
+                });
+            }
+
+            function make_pdf() {
+                var element = document.getElementById("element-to-print");
+                var opt = {
+                    margin: 0,
+                    filename: "myfile.pdf",
+                    image: { type: "jpeg", quality: 0.98 },
+                    html2canvas: { scale: 2, scrollY: 0 },
+                    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+                    pagebreak: { mode: ['css', 'legacy'] }
+                };
+                html2pdf().set(opt).from(element).save();
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
